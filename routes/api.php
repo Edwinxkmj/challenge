@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MobileFoodController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+
+Route::prefix('mobile-food')->middleware(['force-json'])->group(function() {
+    Route::post('change-address', [MobileFoodController::class, 'changeAddress']);
+    Route::get('detail', [MobileFoodController::class, 'getMobileFoodDetail']);
+    Route::get('nearby', [MobileFoodController::class, 'getNearbyMobileFoods']);
+    Route::post('add', [MobileFoodController::class, 'addMobileFood']);
 });
